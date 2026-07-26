@@ -1,0 +1,175 @@
+@import "tailwindcss";
+
+:root {
+  /* Desk + ink (cool-neutral chrome; paper surfaces carry the warm fiber) */
+  --desk: #d8d4cf;
+  --desk-deep: #c4bfb8;
+  --ink: #2a2420;
+  --ink-soft: #4a433c;
+  --ink-muted: #6b635b;
+  --paper: #f3ebe1;
+  --paper-deep: #e7ddd0;
+  --accent: #c45c4a;
+  --accent-deep: #a94838;
+  --accent-soft: #f2c9b8;
+  --shadow-paper: 0 18px 40px rgb(42 36 32 / 0.18), 0 2px 0 rgb(42 36 32 / 0.06);
+
+  --background: var(--desk);
+  --foreground: var(--ink);
+  --radius-interactive: 999px;
+  --radius-sheet: 2px;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-accent: var(--accent);
+  --color-ink: var(--ink);
+  --font-sans: var(--font-outfit);
+  --font-display: var(--font-outfit);
+  --font-hand: var(--font-caveat);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --desk: #1c1a18;
+    --desk-deep: #12100f;
+    --ink: #f3ebe1;
+    --ink-soft: #d8d0c6;
+    --ink-muted: #a39a90;
+    --paper: #2f2a26;
+    --paper-deep: #3a342f;
+    --accent: #d97665;
+    --accent-deep: #e08a7a;
+    --accent-soft: #6b3f36;
+    --shadow-paper: 0 18px 40px rgb(0 0 0 / 0.45), 0 1px 0 rgb(255 255 255 / 0.04);
+    --background: var(--desk);
+    --foreground: var(--ink);
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
+}
+
+.font-display {
+  font-family: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
+  font-weight: 600;
+}
+
+.font-hand {
+  font-family: var(--font-caveat), ui-serif, Georgia, serif;
+}
+
+.font-sans {
+  font-family: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
+}
+
+.desk-bg {
+  background:
+    radial-gradient(120% 80% at 10% 0%, rgb(255 255 255 / 0.35), transparent 50%),
+    radial-gradient(90% 70% at 90% 100%, rgb(196 92 74 / 0.12), transparent 45%),
+    linear-gradient(160deg, var(--desk) 0%, var(--desk-deep) 100%);
+}
+
+.desk-wash {
+  background-image: url("/textures/paper.png");
+  background-size: 420px 420px;
+  opacity: 0.12;
+  mix-blend-mode: multiply;
+}
+
+@media (prefers-color-scheme: dark) {
+  .desk-wash {
+    opacity: 0.08;
+    mix-blend-mode: soft-light;
+  }
+}
+
+.paper-surface {
+  background-color: var(--paper);
+  background-image: url("/textures/paper.png");
+  background-size: 280px 280px;
+  box-shadow: var(--shadow-paper);
+  color: var(--ink);
+  border: 1px solid rgb(42 36 32 / 0.08);
+}
+
+.paper-grain {
+  background-image:
+    radial-gradient(rgb(42 36 32 / 0.04) 0.6px, transparent 0.7px),
+    url("/textures/paper.png");
+  background-size: 3px 3px, 220px 220px;
+  opacity: 0.55;
+  mix-blend-mode: multiply;
+}
+
+@media (prefers-color-scheme: dark) {
+  .paper-surface {
+    border-color: rgb(243 235 225 / 0.08);
+  }
+  .paper-grain {
+    opacity: 0.35;
+    mix-blend-mode: soft-light;
+  }
+}
+
+.letter-sheet,
+.poster-sheet {
+  border-radius: var(--radius-sheet);
+}
+
+.btn-primary {
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-interactive);
+  background: var(--accent);
+  color: #fff8f2;
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 0.85rem 1.35rem;
+  box-shadow: 0 8px 20px rgb(196 92 74 / 0.28);
+  transition: transform 160ms cubic-bezier(0.16, 1, 0.3, 1), background 160ms ease;
+}
+
+.btn-primary:hover {
+  background: var(--accent-deep);
+}
+
+.btn-primary:active {
+  transform: scale(0.98);
+}
+
+.btn-secondary {
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-interactive);
+  border: 1.5px solid rgb(42 36 32 / 0.18);
+  background: rgb(255 248 242 / 0.55);
+  color: var(--ink);
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 0.8rem 1.25rem;
+  transition: transform 160ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-secondary:active {
+  transform: scale(0.98);
+}
+
+@media (prefers-color-scheme: dark) {
+  .btn-secondary {
+    border-color: rgb(243 235 225 / 0.2);
+    background: rgb(255 248 242 / 0.06);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-primary,
+  .btn-secondary,
+  .letter-sheet {
+    transition: none;
+  }
+}

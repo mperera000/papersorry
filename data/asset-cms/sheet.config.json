@@ -1,0 +1,16 @@
+{
+  "sheetId": "1rwY7G2854-tdSeCiqY40IgS_qeCOnLVuMYxmve3EwTg",
+  "sheetUrl": "https://docs.google.com/spreadsheets/d/1rwY7G2854-tdSeCiqY40IgS_qeCOnLVuMYxmve3EwTg/edit",
+  "tabs": {
+    "stickers": {
+      "name": "Stickers",
+      "gid": "500154227",
+      "csvFile": "stickers.csv"
+    },
+    "memes": {
+      "name": "Memes",
+      "gid": "1950989534",
+      "csvFile": "memes.csv"
+    }
+  }
+}

@@ -1,23 +1,44 @@
 import type { Metadata } from "next";
-import { Caveat, Outfit } from "next/font/google";
+import {
+  Alex_Brush,
+  Cormorant_Garamond,
+  Inter,
+  Playfair_Display,
+} from "next/font/google";
 import "./globals.css";
 
-const outfit = Outfit({
-  variable: "--font-outfit",
+const cormorant = Cormorant_Garamond({
+  variable: "--font-cormorant",
+  subsets: ["latin"],
+  weight: ["400", "600", "700"],
+  display: "swap",
+});
+
+const playfair = Playfair_Display({
+  variable: "--font-playfair",
+  subsets: ["latin"],
+  weight: ["400", "600", "700"],
+  display: "swap",
+});
+
+const alexBrush = Alex_Brush({
+  variable: "--font-alex-brush",
+  weight: "400",
   subsets: ["latin"],
   display: "swap",
 });
 
-const caveat = Caveat({
-  variable: "--font-caveat",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
+  weight: ["200", "400"],
   display: "swap",
 });
 
 export const metadata: Metadata = {
   title: "PaperSorry",
   description:
-    "A funny, sincere paper keepsake for tiny oopses between close friends.",
+    "Send a funny, sincere paper apology for tiny oopses between close friends.",
 };
 
 export default function RootLayout({
@@ -28,9 +49,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${outfit.variable} ${caveat.variable} h-full antialiased`}
+      className={`${cormorant.variable} ${playfair.variable} ${alexBrush.variable} ${inter.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col font-sans">{children}</body>
+      <body className="flex min-h-full flex-col">{children}</body>
     </html>
   );
 }

@@ -1,5 +1,5 @@
-import { Phase0Experience } from "@/features/landing/Phase0Experience";
+import { LandingPage } from "@/features/landing/LandingPage";
 
 export default function Home() {
-  return <Phase0Experience />;
+  return <LandingPage />;
 }

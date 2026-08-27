@@ -1,23 +1,43 @@
 import Link from "next/link";
+import { ReceivePageClient } from "@/features/receive/ReceivePageClient";
+import { getPosterById } from "@/lib/db/posters";
+import { log } from "@/lib/log";
 
-/** Public poster page - wired in Phase 6. */
 export default async function PosterPage({
   params,
 }: {
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
+  const result = await getPosterById(id);
 
-  return (
-    <main className="desk-bg flex min-h-[100dvh] flex-col items-center justify-center px-6 text-center">
-      <h1 className="font-display text-2xl text-[var(--ink)]">Poster coming soon</h1>
-      <p className="mt-2 max-w-sm text-sm text-[var(--ink-muted)]">
-        This route will load poster <code className="text-[var(--accent)]">{id}</code>{" "}
-        after Phase 6.
-      </p>
-      <Link href="/" className="btn-primary mt-6 inline-flex">
-        Back to letter
-      </Link>
-    </main>
-  );
+  if (!result.ok) {
+    log("warn", {
+      category: "receive",
+      action: "poster_page_load",
+      outcome: "fail",
+      reason: result.code,
+      meta: { id },
+    });
+
+    return (
+      <main className="ps-error-page">
+        <h1 style={{ fontSize: "1.5rem", fontWeight: 700 }}>
+          {result.code === "not_found"
+            ? "Poster not found"
+            : result.code === "config"
+              ? "Database not ready"
+              : "Could not open poster"}
+        </h1>
+        <p style={{ color: "var(--ink-soft)", maxWidth: "20rem" }}>
+          {result.error}
+        </p>
+        <Link href="/" className="ps-wax-btn ps-wax-btn--purple">
+          Back home
+        </Link>
+      </main>
+    );
+  }
+
+  return <ReceivePageClient poster={result.data} />;
 }

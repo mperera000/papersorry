@@ -1,175 +1,1014 @@
 @import "tailwindcss";
 
 :root {
-  /* Desk + ink (cool-neutral chrome; paper surfaces carry the warm fiber) */
-  --desk: #d8d4cf;
-  --desk-deep: #c4bfb8;
-  --ink: #2a2420;
+  --bg: #f5f5f5;
+  --ink: #22160b;
   --ink-soft: #4a433c;
-  --ink-muted: #6b635b;
-  --paper: #f3ebe1;
-  --paper-deep: #e7ddd0;
-  --accent: #c45c4a;
-  --accent-deep: #a94838;
-  --accent-soft: #f2c9b8;
-  --shadow-paper: 0 18px 40px rgb(42 36 32 / 0.18), 0 2px 0 rgb(42 36 32 / 0.06);
+  --parchment: #faf8f4;
+  --parchment-edge: #e8e2d8;
+  --prompt-purple: #4a2f5c;
+  --border-brown: #3d342c;
+  --focus: #2f5340;
 
-  --background: var(--desk);
+  --background: var(--bg);
   --foreground: var(--ink);
-  --radius-interactive: 999px;
-  --radius-sheet: 2px;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --color-accent: var(--accent);
-  --color-ink: var(--ink);
-  --font-sans: var(--font-outfit);
-  --font-display: var(--font-outfit);
-  --font-hand: var(--font-caveat);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --desk: #1c1a18;
-    --desk-deep: #12100f;
-    --ink: #f3ebe1;
-    --ink-soft: #d8d0c6;
-    --ink-muted: #a39a90;
-    --paper: #2f2a26;
-    --paper-deep: #3a342f;
-    --accent: #d97665;
-    --accent-deep: #e08a7a;
-    --accent-soft: #6b3f36;
-    --shadow-paper: 0 18px 40px rgb(0 0 0 / 0.45), 0 1px 0 rgb(255 255 255 / 0.04);
-    --background: var(--desk);
-    --foreground: var(--ink);
-  }
+  --font-serif: var(--font-playfair);
+  --font-script: var(--font-alex-brush);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
-}
-
-.font-display {
-  font-family: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
-  font-weight: 600;
-}
-
-.font-hand {
-  font-family: var(--font-caveat), ui-serif, Georgia, serif;
-}
-
-.font-sans {
-  font-family: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
-}
-
-.desk-bg {
-  background:
-    radial-gradient(120% 80% at 10% 0%, rgb(255 255 255 / 0.35), transparent 50%),
-    radial-gradient(90% 70% at 90% 100%, rgb(196 92 74 / 0.12), transparent 45%),
-    linear-gradient(160deg, var(--desk) 0%, var(--desk-deep) 100%);
-}
-
-.desk-wash {
-  background-image: url("/textures/paper.png");
-  background-size: 420px 420px;
-  opacity: 0.12;
-  mix-blend-mode: multiply;
-}
-
-@media (prefers-color-scheme: dark) {
-  .desk-wash {
-    opacity: 0.08;
-    mix-blend-mode: soft-light;
-  }
-}
-
-.paper-surface {
-  background-color: var(--paper);
-  background-image: url("/textures/paper.png");
-  background-size: 280px 280px;
-  box-shadow: var(--shadow-paper);
+  background: var(--bg);
   color: var(--ink);
-  border: 1px solid rgb(42 36 32 / 0.08);
+  font-family: var(--font-cormorant), Georgia, "Times New Roman", serif;
 }
 
-.paper-grain {
-  background-image:
-    radial-gradient(rgb(42 36 32 / 0.04) 0.6px, transparent 0.7px),
-    url("/textures/paper.png");
-  background-size: 3px 3px, 220px 220px;
-  opacity: 0.55;
-  mix-blend-mode: multiply;
+.ps-shell {
+  min-height: 100dvh;
+  background: var(--bg);
 }
 
-@media (prefers-color-scheme: dark) {
-  .paper-surface {
-    border-color: rgb(243 235 225 / 0.08);
+.ps-screen {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 26rem;
+  min-height: 100dvh;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Landing — exact Figma Screen/Landing-Closed 16:58 (402×874) */
+.ps-landing {
+  display: flex;
+  justify-content: center;
+  min-height: 100dvh;
+  background: #fff;
+  overflow: hidden;
+}
+
+.ps-landing-frame {
+  position: relative;
+  width: 402px;
+  height: 874px;
+  background: #fff;
+  overflow: hidden;
+  flex-shrink: 0;
+  transform: scale(calc(min(100vw, 402px) / 402));
+  transform-origin: top center;
+  margin-bottom: calc((874px * min(100vw, 402px) / 402) - 874px);
+}
+
+/* Envelope/close — absolute h-[1841px] left-[-952px] top-[-403px] w-[2301px] */
+.ps-figma-envelope {
+  position: absolute;
+  left: -952px;
+  top: -403px;
+  width: 2301px;
+  height: 1841px;
+}
+
+.ps-figma-envelope__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+/* Text/Title — absolute h-[152px] left-[59px] top-[227px] w-[336px] */
+.ps-figma-title {
+  position: absolute;
+  left: 59px;
+  top: 227px;
+  width: 336px;
+  height: 152px;
+  line-height: normal;
+  word-break: break-word;
+  pointer-events: none;
+}
+
+.ps-figma-title__send {
+  position: absolute;
+  inset: 0 24.4% 44.74% 8.93%;
+  margin: 0;
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-weight: 200;
+  font-size: 58px;
+  letter-spacing: -1.16px;
+  color: #1b1209;
+  white-space: pre-wrap;
+}
+
+.ps-figma-title__apology {
+  position: absolute;
+  inset: 36.84% 0 0 0;
+  margin: 0;
+  font-family: var(--font-alex-brush), cursive;
+  font-size: 95px;
+  letter-spacing: 0.95px;
+  color: #1e140c;
+}
+
+/* Button/Create — absolute h-[186px] left-[calc(20%+23.6px)] top-[425px] w-[189px] */
+.ps-landing-create-hit {
+  position: absolute;
+  left: calc(20% + 23.6px);
+  top: 425px;
+  width: 189px;
+  height: 186px;
+  border: none;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.ps-figma-create__halo {
+  position: absolute;
+  top: 51.88%;
+  left: 50.26%;
+  width: 95.24%;
+  height: 94.09%;
+  transform: translate(-50%, -50%) scale(1.12);
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at center,
+    rgb(255 255 255 / 0) 52%,
+    rgb(255 255 255 / 0.55) 68%,
+    rgb(255 255 255 / 0.28) 78%,
+    rgb(255 255 255 / 0) 92%
+  );
+  opacity: 0;
+  transition: opacity 180ms ease;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@media (hover: hover) {
+  .ps-landing-create-hit:hover .ps-figma-create__halo {
+    opacity: 1;
   }
-  .paper-grain {
-    opacity: 0.35;
-    mix-blend-mode: soft-light;
-  }
 }
 
-.letter-sheet,
-.poster-sheet {
-  border-radius: var(--radius-sheet);
+.ps-landing-create-hit:focus-visible .ps-figma-create__halo {
+  opacity: 1;
 }
 
-.btn-primary {
+.ps-landing-create-hit:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 4px;
+}
+
+.ps-figma-create {
+  position: relative;
+  width: 189px;
+  height: 186px;
+  z-index: 1;
+}
+
+.ps-figma-create__wax-wrap {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.ps-figma-create__wax {
+  position: absolute;
+  width: 113%;
+  height: 152.08%;
+  left: -9.03%;
+  top: -24.79%;
+  max-width: none;
+}
+
+.ps-figma-create__mouth {
+  position: absolute;
+  inset: 59.02% 35.06% 21.22% 27.79%;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.ps-figma-create__mouth-inset {
+  position: absolute;
+  inset: -8.1% -3.7% -5.34% -3.33%;
+}
+
+.ps-figma-create__eye-left {
+  position: absolute;
+  inset: 27.88% 60.33% 56.93% 38.96%;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.ps-figma-create__eye-left-inset {
+  position: absolute;
+  inset: -10.62% -224.51% -10.62% -224.52%;
+}
+
+.ps-figma-create__eye-right {
+  position: absolute;
+  inset: 27.91% 42.11% 56.55% 56.91%;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.ps-figma-create__eye-right-inset {
+  position: absolute;
+  inset: -10.38% -161.07% -10.38% -161.09%;
+}
+
+.ps-figma-create__mouth-inset img,
+.ps-figma-create__eye-left-inset img,
+.ps-figma-create__eye-right-inset img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+}
+
+/* Canvas */
+.ps-canvas-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.35rem 0.75rem 1.5rem;
+  gap: 0.85rem;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.ps-toolbar {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
+  width: 100%;
+  max-width: 24.5rem;
+}
+
+.ps-tool {
+  min-height: 2.75rem;
+  min-width: 2.75rem;
+  padding: 0.55rem 0.4rem;
+  border: 2px solid var(--border-brown);
+  background: linear-gradient(180deg, #fdfbf7 0%, #f3ece2 100%);
+  color: var(--ink);
+  font-family: var(--font-playfair), Georgia, serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  box-shadow: 0 2px 0 rgb(61 52 44 / 0.12);
+}
+
+.ps-tool:focus-visible,
+.ps-tool--active {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.ps-tool--active {
+  background: #ebe3d6;
+}
+
+.ps-paper-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 23rem;
+}
+
+.ps-paper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 370 / 570;
+  background: center / contain no-repeat;
+  overflow: hidden;
+  touch-action: none;
+  user-select: none;
+}
+
+.ps-paper__border {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.canvas-text,
+.ps-canvas-asset,
+.ps-canvas-item {
+  z-index: 2;
+}
+
+.canvas-item--selected {
+  outline: 2px dashed var(--focus);
+  outline-offset: 3px;
+}
+
+.ps-canvas-item {
+  position: absolute;
+  cursor: grab;
+  touch-action: none;
+}
+
+.ps-canvas-item:active {
+  cursor: grabbing;
+}
+
+.ps-canvas-item__inner {
+  position: relative;
+  transform-origin: top left;
+}
+
+.canvas-resize-handle {
+  position: absolute;
+  right: -0.55rem;
+  bottom: -0.55rem;
+  width: 1.85rem;
+  height: 1.85rem;
+  padding: 0;
+  border: 2px solid var(--focus);
+  border-radius: 50%;
+  background: #fff;
+  cursor: nwse-resize;
+  touch-action: none;
+  z-index: 4;
+  box-shadow: 0 1px 4px rgb(27 18 9 / 0.18);
+}
+
+.canvas-resize-handle::after {
+  content: "";
+  position: absolute;
+  inset: 0.45rem;
+  border-right: 2px solid var(--focus);
+  border-bottom: 2px solid var(--focus);
+}
+
+.canvas-resize-handle--border {
+  right: 7%;
+  bottom: 10%;
+  cursor: nwse-resize;
+}
+
+.canvas-text {
+  max-width: 84%;
+  line-height: 1.25;
+  color: var(--ink);
+  font-family: var(--font-cormorant), Georgia, serif;
+}
+
+.canvas-text--greeting {
+  font-size: 1.15rem;
+}
+
+.canvas-text--headline {
+  font-size: 1.35rem;
+  font-weight: 700;
+}
+
+.canvas-text--body {
+  font-size: 1rem;
+  color: var(--ink-soft);
+}
+
+.ps-canvas-asset {
+  width: 4rem;
+  max-width: 22%;
+}
+
+.ps-canvas-asset--sticker {
+  width: 4rem;
+  max-width: 22%;
+}
+
+.ps-canvas-asset--meme {
+  width: 3.25rem;
+  max-width: 18%;
+}
+
+.ps-canvas-asset__img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+.ps-canvas-asset__fallback {
+  display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: var(--radius-interactive);
-  background: var(--accent);
-  color: #fff8f2;
+  min-height: 3.5rem;
+  border: 2px solid var(--border-brown);
+  background: #f3ece2;
+  font-size: 1.75rem;
+  border-radius: 4px;
+}
+
+.ps-canvas-send {
+  border: none;
+  background: transparent;
+  padding: 0;
+  margin-top: -0.65rem;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: transform 160ms ease;
+}
+
+.ps-canvas-send:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 4px;
+  border-radius: 8px;
+}
+
+.ps-canvas-send:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+.ps-canvas-send:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}
+
+.ps-canvas-send__img {
+  width: min(10.5rem, 42vw);
+  height: auto;
+  display: block;
+}
+
+/* Text prompt overlay on paper */
+.ps-text-prompt {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  background: rgb(0 0 0 / 0.35);
+}
+
+.ps-text-prompt__panel {
+  margin: 0;
+  padding: 1.25rem 1.1rem 1.5rem;
+  background: var(--prompt-purple);
+  color: #fff;
+}
+
+.ps-text-prompt__panel label {
+  display: block;
+  font-family: var(--font-playfair), Georgia, serif;
+  font-size: 0.75rem;
   font-weight: 600;
-  font-size: 0.95rem;
-  padding: 0.85rem 1.35rem;
-  box-shadow: 0 8px 20px rgb(196 92 74 / 0.28);
-  transition: transform 160ms cubic-bezier(0.16, 1, 0.3, 1), background 160ms ease;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 0.35rem;
+  opacity: 0.9;
 }
 
-.btn-primary:hover {
-  background: var(--accent-deep);
+.ps-text-prompt__panel input,
+.ps-text-prompt__panel textarea {
+  width: 100%;
+  margin-bottom: 0.85rem;
+  padding: 0.45rem 0;
+  border: none;
+  border-bottom: 2px solid rgb(255 255 255 / 0.65);
+  background: transparent;
+  color: #fff;
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-size: 1.1rem;
 }
 
-.btn-primary:active {
-  transform: scale(0.98);
+.ps-text-prompt__panel input:focus,
+.ps-text-prompt__panel textarea:focus {
+  outline: none;
+  border-bottom-color: #fff;
 }
 
-.btn-secondary {
+.ps-text-prompt__actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.ps-text-prompt__actions button {
+  flex: 1;
+  min-height: 2.75rem;
+  border: 2px solid #fff;
+  background: transparent;
+  color: #fff;
+  font-family: var(--font-playfair), Georgia, serif;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.ps-text-prompt__actions button.primary {
+  background: #fff;
+  color: var(--prompt-purple);
+}
+
+/* Asset tray */
+.ps-tray {
+  width: 100%;
+  max-width: 22rem;
+  padding: 0.75rem;
+  border: 2px solid var(--border-brown);
+  background: #fdfbf7;
+}
+
+.ps-tray__grid {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  padding-bottom: 0.25rem;
+}
+
+.ps-tray__item {
+  flex: 0 0 auto;
+  min-width: 3.5rem;
+  min-height: 3.5rem;
+  padding: 0.35rem;
+  border: 2px solid var(--border-brown);
+  background: #fff;
+  cursor: pointer;
+  font-size: 1.5rem;
+}
+
+.ps-tray__item:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.ps-tray__grid--borders {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.5rem;
+  overflow: visible;
+}
+
+.ps-tray__item--border {
+  min-width: 0;
+  min-height: 5.5rem;
+  padding: 0.35rem;
+}
+
+.ps-tray__item--active {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+  background: #ebe3d6;
+}
+
+.ps-tray__border-preview {
+  width: 100%;
+  height: 100%;
+  min-height: 4.75rem;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+.ps-tray__border-none {
+  display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: var(--radius-interactive);
-  border: 1.5px solid rgb(42 36 32 / 0.18);
-  background: rgb(255 248 242 / 0.55);
-  color: var(--ink);
+  min-height: 4.75rem;
+  font-family: var(--font-playfair), Georgia, serif;
+  font-size: 0.85rem;
   font-weight: 600;
-  font-size: 0.95rem;
-  padding: 0.8rem 1.25rem;
-  transition: transform 160ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.btn-secondary:active {
-  transform: scale(0.98);
+.ps-canvas-delete-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  max-width: 22rem;
+  padding: 0.55rem 0.65rem;
+  border: 2px solid var(--border-brown);
+  background: #fdfbf7;
 }
 
-@media (prefers-color-scheme: dark) {
-  .btn-secondary {
-    border-color: rgb(243 235 225 / 0.2);
-    background: rgb(255 248 242 / 0.06);
+.ps-canvas-delete-bar__label {
+  flex: 1 1 5rem;
+  font-family: var(--font-playfair), Georgia, serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.ps-canvas-delete-bar__resize {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.ps-canvas-delete-bar__resize-btn {
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  padding: 0;
+  border: 2px solid var(--border-brown);
+  background: #fff;
+  font-family: var(--font-playfair), Georgia, serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.ps-canvas-delete-bar__resize-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.ps-canvas-delete-bar__scale {
+  min-width: 3rem;
+  font-family: var(--font-playfair), Georgia, serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-align: center;
+  color: var(--ink-soft);
+}
+
+.ps-canvas-delete-bar__btn {
+  min-height: 2.75rem;
+  padding: 0.4rem 0.85rem;
+  border: 2px solid #8b2942;
+  background: #fff;
+  color: #8b2942;
+  font-family: var(--font-playfair), Georgia, serif;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.ps-canvas-delete-bar__cancel {
+  min-height: 2.75rem;
+  padding: 0.4rem 0.65rem;
+  border: none;
+  background: transparent;
+  font-family: var(--font-playfair), Georgia, serif;
+  font-weight: 600;
+  cursor: pointer;
+  color: var(--ink-soft);
+}
+
+.ps-canvas-delete-bar__btn:focus-visible,
+.ps-canvas-delete-bar__cancel:focus-visible,
+.ps-canvas-delete-bar__resize-btn:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.ps-tray__item--image {
+  font-size: 0;
+  width: 3.5rem;
+  height: 3.5rem;
+  min-width: 3.5rem;
+  min-height: 3.5rem;
+  padding: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ps-tray--memes .ps-tray__item--image {
+  width: 2.75rem;
+  height: 2.75rem;
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  padding: 0.15rem;
+}
+
+.ps-tray__thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.ps-tray__fallback {
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.ps-tray__empty {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  line-height: 1.4;
+}
+
+/* Share — exact Figma Screen/Share-Link-Ready 54:2169 (402×874) */
+.ps-share {
+  display: flex;
+  justify-content: center;
+  min-height: 100dvh;
+  background: var(--bg);
+  overflow: hidden;
+}
+
+.ps-share-frame {
+  position: relative;
+  width: 402px;
+  height: 874px;
+  background: var(--bg);
+  overflow: hidden;
+  flex-shrink: 0;
+  transform: scale(calc(min(100vw, 402px) / 402));
+  transform-origin: top center;
+  margin-bottom: calc((874px * min(100vw, 402px) / 402) - 874px);
+}
+
+.ps-share__title {
+  position: absolute;
+  left: 50%;
+  top: 72px;
+  z-index: 2;
+  width: calc(100% - 2.5rem);
+  max-width: 18rem;
+  margin: 0;
+  transform: translateX(-50%);
+  text-align: center;
+  font-family: var(--font-playfair), Georgia, serif;
+  font-size: 48px;
+  font-weight: 600;
+  line-height: 1.05;
+  color: var(--ink);
+}
+
+/* Mailbox/54:2564 — @2x asset at 1x (402×771) centered in 402 frame */
+.ps-figma-mailbox {
+  position: absolute;
+  left: 50%;
+  top: 168px;
+  width: 402px;
+  height: 580px;
+  transform: translateX(-50%);
+  overflow: hidden;
+  pointer-events: auto;
+}
+
+.ps-figma-mailbox__img {
+  display: block;
+  width: 402px;
+  height: auto;
+  max-width: none;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Link field — Figma HTML layers on clean mailbox (54:2564 + handoff) */
+.ps-figma-mailbox__slot {
+  position: absolute;
+  left: 15%;
+  top: 54.2%;
+  width: 70%;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.3rem 0.45rem;
+  background: #fff;
+  border-radius: 3px;
+  z-index: 3;
+  pointer-events: auto;
+}
+
+.ps-figma-mailbox__slot-icon {
+  flex: 0 0 auto;
+  width: 1.15rem;
+  height: 1.15rem;
+  object-fit: contain;
+  filter: brightness(0) saturate(100%);
+  opacity: 0.72;
+  pointer-events: none;
+  user-select: none;
+}
+
+.ps-figma-mailbox__url-btn {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  border: none;
+  background: transparent;
+  padding: 0;
+  text-align: left;
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-size: 0.62rem;
+  font-weight: 500;
+  line-height: 1.2;
+  color: var(--ink-soft);
+  cursor: pointer;
+  touch-action: manipulation;
+  pointer-events: auto;
+  -webkit-tap-highlight-color: transparent;
+  appearance: none;
+  -webkit-appearance: none;
+  box-shadow: none;
+  border-radius: 0;
+}
+
+.ps-figma-mailbox__copy {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  touch-action: manipulation;
+  pointer-events: auto;
+  -webkit-tap-highlight-color: transparent;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.ps-figma-mailbox__copy img {
+  width: 1.5rem;
+  height: 1.5rem;
+  object-fit: contain;
+  filter: brightness(0) saturate(100%);
+  opacity: 0.72;
+  pointer-events: none;
+  user-select: none;
+}
+
+.ps-figma-mailbox__url-btn:focus-visible,
+.ps-figma-mailbox__copy:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.ps-figma-mailbox__copied {
+  position: absolute;
+  left: 50%;
+  top: 46%;
+  transform: translateX(-50%);
+  padding: 0.45rem 0.9rem;
+  background: var(--ink);
+  color: #fff;
+  font-family: var(--font-playfair), Georgia, serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border-radius: 4px;
+  white-space: nowrap;
+  z-index: 5;
+}
+
+.ps-share__footer {
+  position: absolute;
+  top: calc(168px + 580px + 1.25rem);
+  left: 0;
+  right: 0;
+  margin: 0;
+  text-align: center;
+  font-family: var(--font-playfair), Georgia, serif;
+  font-size: 1rem;
+  z-index: 4;
+}
+
+.ps-share__footer a {
+  color: var(--ink-soft);
+}
+
+/* Receive */
+.ps-receive-closed {
+  padding: 3.4rem 1.25rem 2rem;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+}
+
+.ps-receive-closed__title {
+  font-family: var(--font-playfair), Georgia, serif;
+  font-size: clamp(2rem, 8vw, 3rem);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+  max-width: 20rem;
+}
+
+.ps-receive-envelope {
+  align-self: flex-start;
+  margin-top: 3.5rem;
+  margin-left: 0.25rem;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  padding: 0;
+}
+
+.ps-receive-envelope:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+.ps-receive-envelope__img {
+  width: min(21.5rem, 88vw);
+  height: auto;
+}
+
+.ps-receive-closed__footer {
+  margin-top: auto;
+  padding-top: 2rem;
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+}
+
+.ps-receive-open {
+  padding: 1.5rem 1rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  background: var(--bg);
+  overflow-y: auto;
+}
+
+.ps-download-btn {
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  padding: 0.35rem;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.ps-download-btn:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+.ps-receive-open__footer {
+  font-size: 0.9rem;
+}
+
+.ps-nudge {
+  width: 100%;
+  max-width: 22rem;
+  padding: 0.65rem 0.85rem;
+  background: #fff3cd;
+  border: 1px solid #e6c200;
+  color: #5c4a00;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.ps-error-page {
+  display: flex;
+  min-height: 100dvh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  text-align: center;
+  gap: 1rem;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .btn-primary,
-  .btn-secondary,
-  .letter-sheet {
+  .ps-canvas-send {
     transition: none;
+  }
+}
+
+@media print {
+  .ps-download-btn,
+  .ps-receive-open__footer {
+    display: none;
   }
 }

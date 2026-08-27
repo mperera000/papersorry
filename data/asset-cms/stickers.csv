@@ -1,0 +1,13 @@
+id,label,category,source_url,file,attribution,vibe,enabled,notes
+beg-icons,Beg icons,stickers,https://www.flaticon.com/free-icons/beg,beg-pleading.png,Leremy - Flaticon; sticker file: OpenMoji (CC BY-SA 4.0),funny,TRUE,Pick a specific icon from pack; download PNG to public/stickers/
+emoji-icons,Emoji icons,stickers,https://www.flaticon.com/free-icons/emoji,emoji-grin.png,CapVora - Flaticon; sticker file: OpenMoji (CC BY-SA 4.0),funny,TRUE,Pick a specific icon from pack
+apologize-icons,Apologize icons,stickers,https://www.flaticon.com/free-icons/apologize,apologize-hands.png,Prosymbols Premium - Flaticon; sticker file: OpenMoji (CC BY-SA 4.0),sweet,TRUE,Premium pack — confirm license
+sad-stickers-soulgie-1,Sad stickers,stickers,https://www.flaticon.com/free-stickers/sad,sad-pensive.png,SoulGIE - Flaticon; sticker file: OpenMoji (CC BY-SA 4.0),sweet,TRUE,Pick a specific sticker from pack
+cute-stickers-soulgie,Cute stickers,stickers,https://www.flaticon.com/free-stickers/cute,cute-pleading.png,SoulGIE - Flaticon; sticker file: OpenMoji (CC BY-SA 4.0),funny,TRUE,Pick a specific sticker from pack
+cute-stickers-rohim,Cute stickers,stickers,https://www.flaticon.com/free-stickers/cute,cute-hearts.png,Rohim - Flaticon; sticker file: OpenMoji (CC BY-SA 4.0),funny,TRUE,Pick a specific sticker from pack
+bear-stickers,Bear stickers,stickers,https://www.flaticon.com/free-stickers/bear,bear.png,aslaiart - Flaticon; sticker file: OpenMoji (CC BY-SA 4.0),funny,TRUE,Pick a specific sticker from pack
+love-romance-stickers,Love and romance stickers,stickers,https://www.flaticon.com/free-stickers/love-and-romance,broken-heart.png,paulalee - Flaticon; sticker file: OpenMoji (CC BY-SA 4.0),sweet,TRUE,Pick a specific sticker from pack
+flower-stickers,Flower stickers,stickers,https://www.flaticon.com/free-stickers/flower,flower.png,kerismaker - Flaticon; sticker file: OpenMoji (CC BY-SA 4.0),sweet,TRUE,Pick a specific sticker from pack
+copy-icon,Copy icon,icon,https://icons8.com/icon/AGLXTiVVflkt/copy,,Icons8,,FALSE,UI icon for share screen if needed
+download-icon,Downlaod Icon,icon,https://icons8.com/icon/20FjgTazh8FG/download,,Icons9,,FALSE,UI icon for downloading letter if needed
+link-icon,Link Icon,icon,https://icons8.com/icon/I7J76hq8WtC6/link,,,,,

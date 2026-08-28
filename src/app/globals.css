@@ -21,14 +21,25 @@
   --font-script: var(--font-alex-brush);
 }
 
+html,
+body {
+  height: 100%;
+}
+
 body {
   background: var(--bg);
   color: var(--ink);
   font-family: var(--font-cormorant), Georgia, "Times New Roman", serif;
 }
 
+body:has(.ps-landing),
+body:has(.ps-canvas-page) {
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
 .ps-shell {
-  min-height: 100dvh;
+  min-height: 100svh;
   background: var(--bg);
 }
 
@@ -41,25 +52,37 @@ body {
   overflow: hidden;
 }
 
-/* Landing — exact Figma Screen/Landing-Closed 16:58 (402×874) */
+/* Landing — exact Figma Screen/Landing-Closed 16:58 (402×874), fit to visible viewport */
 .ps-landing {
-  display: flex;
-  justify-content: center;
-  min-height: 100dvh;
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  min-height: 0;
+  height: auto;
   background: #fff;
+  overflow: hidden;
+  container-type: size;
+}
+
+.ps-landing-scale {
+  --ps-land-s: min(100cqw / 402px, 100cqh / 874px);
+  width: calc(402px * var(--ps-land-s));
+  height: calc(874px * var(--ps-land-s));
+  position: relative;
   overflow: hidden;
 }
 
 .ps-landing-frame {
-  position: relative;
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 402px;
   height: 874px;
   background: #fff;
   overflow: hidden;
-  flex-shrink: 0;
-  transform: scale(calc(min(100vw, 402px) / 402));
-  transform-origin: top center;
-  margin-bottom: calc((874px * min(100vw, 402px) / 402) - 874px);
+  transform-origin: top left;
+  transform: scale(var(--ps-land-s));
 }
 
 /* Envelope/close — absolute h-[1841px] left-[-952px] top-[-403px] w-[2301px] */
@@ -69,6 +92,7 @@ body {
   top: -403px;
   width: 2301px;
   height: 1841px;
+  pointer-events: none;
 }
 
 .ps-figma-envelope__img {
@@ -127,6 +151,7 @@ body {
   background: transparent;
   cursor: pointer;
   touch-action: manipulation;
+  z-index: 2;
 }
 
 .ps-figma-create__halo {
@@ -234,37 +259,95 @@ body {
   max-width: none;
 }
 
-/* Canvas */
+/* Canvas — Screen/Canvas-Decorate; lock to the visible Safari viewport */
 .ps-canvas-page {
+  --ps-canvas-pad-x: 0.6rem;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 1.35rem 0.75rem 1.5rem;
-  gap: 0.85rem;
-  overflow-x: hidden;
-  overflow-y: auto;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 26rem;
+  margin: 0 auto;
+  min-height: 0;
+  height: auto;
+  padding: max(0.45rem, env(safe-area-inset-top)) var(--ps-canvas-pad-x)
+    max(0.45rem, env(safe-area-inset-bottom));
+  gap: 0.4rem;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.ps-canvas-page__toolbar {
+  flex: 0 0 auto;
+  position: relative;
+  z-index: 30;
+  width: 100%;
+  pointer-events: auto;
+}
+
+.ps-canvas-page__body {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  width: 100%;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.ps-canvas-page__dock {
+  flex: 0 0 auto;
+  z-index: 30;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  pointer-events: auto;
+  padding-bottom: 0.15rem;
+}
+
+.ps-canvas-page__footer {
+  flex: 0 0 auto;
+  position: relative;
+  z-index: 20;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  pointer-events: auto;
 }
 
 .ps-toolbar {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.5rem;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.35rem;
   width: 100%;
   max-width: 24.5rem;
+  margin: 0 auto;
 }
 
 .ps-tool {
-  min-height: 2.75rem;
-  min-width: 2.75rem;
-  padding: 0.55rem 0.4rem;
+  min-height: 2.5rem;
+  min-width: 0;
+  padding: 0.4rem 0.2rem;
   border: 2px solid var(--border-brown);
   background: linear-gradient(180deg, #fdfbf7 0%, #f3ece2 100%);
   color: var(--ink);
   font-family: var(--font-playfair), Georgia, serif;
-  font-size: 0.95rem;
+  font-size: 0.78rem;
   font-weight: 600;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.01em;
   cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
   box-shadow: 0 2px 0 rgb(61 52 44 / 0.12);
 }
 
@@ -280,13 +363,21 @@ body {
 
 .ps-paper-wrap {
   position: relative;
+  flex: 1 1 0;
   width: 100%;
   max-width: 23rem;
+  min-height: 0;
+  display: grid;
+  place-items: center;
+  container-type: size;
 }
 
 .ps-paper {
   position: relative;
-  width: 100%;
+  width: min(100cqw, calc(100cqh * 370 / 570));
+  height: min(100cqh, calc(100cqw * 570 / 370));
+  max-width: 100%;
+  max-height: 100%;
   aspect-ratio: 370 / 570;
   background: center / contain no-repeat;
   overflow: hidden;
@@ -420,9 +511,9 @@ body {
   border: none;
   background: transparent;
   padding: 0;
-  margin-top: -0.65rem;
   cursor: pointer;
   touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
   transition: transform 160ms ease;
 }
 
@@ -442,7 +533,7 @@ body {
 }
 
 .ps-canvas-send__img {
-  width: min(10.5rem, 42vw);
+  width: min(8.5rem, 36vw);
   height: auto;
   display: block;
 }
@@ -518,9 +609,10 @@ body {
 
 /* Asset tray */
 .ps-tray {
+  flex-shrink: 0;
   width: 100%;
   max-width: 22rem;
-  padding: 0.75rem;
+  padding: 0.4rem 0.5rem;
   border: 2px solid var(--border-brown);
   background: #fdfbf7;
 }
@@ -557,8 +649,8 @@ body {
 
 .ps-tray__item--border {
   min-width: 0;
-  min-height: 5.5rem;
-  padding: 0.35rem;
+  min-height: 3.75rem;
+  padding: 0.25rem;
 }
 
 .ps-tray__item--active {
@@ -570,7 +662,7 @@ body {
 .ps-tray__border-preview {
   width: 100%;
   height: 100%;
-  min-height: 4.75rem;
+  min-height: 3.25rem;
   object-fit: contain;
   pointer-events: none;
 }
@@ -579,20 +671,21 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 4.75rem;
+  min-height: 3.25rem;
   font-family: var(--font-playfair), Georgia, serif;
   font-size: 0.85rem;
   font-weight: 600;
 }
 
 .ps-canvas-delete-bar {
+  flex-shrink: 0;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.35rem;
   width: 100%;
   max-width: 22rem;
-  padding: 0.55rem 0.65rem;
+  padding: 0.35rem 0.5rem;
   border: 2px solid var(--border-brown);
   background: #fdfbf7;
 }
@@ -996,6 +1089,7 @@ body {
 }
 
 .ps-nudge {
+  flex-shrink: 0;
   width: 100%;
   max-width: 22rem;
   padding: 0.65rem 0.85rem;

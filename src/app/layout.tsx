@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import {
   Alex_Brush,
   Cormorant_Garamond,
@@ -39,6 +39,12 @@ export const metadata: Metadata = {
   title: "PaperSorry",
   description:
     "Send a funny, sincere paper apology for tiny oopses between close friends.",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
 };
 
 export default function RootLayout({

@@ -75,28 +75,30 @@ export function LandingPage() {
 
   return (
     <main className="ps-shell ps-landing">
-      <div
-        className="ps-landing-frame"
-        data-name="Screen/Landing-Closed"
-        data-node-id="16:58"
-      >
-        <EnvelopeClose />
-        <button
-          type="button"
-          className="ps-landing-create-hit"
-          aria-label="Create your apology letter"
-          onClick={() => {
-            log("info", {
-              category: "landing",
-              action: "letter_opened",
-              outcome: "ok",
-            });
-            router.push("/create");
-          }}
+      <div className="ps-landing-scale">
+        <div
+          className="ps-landing-frame"
+          data-name="Screen/Landing-Closed"
+          data-node-id="16:58"
         >
-          <ButtonCreate />
-        </button>
-        <TextTitle />
+          <EnvelopeClose />
+          <button
+            type="button"
+            className="ps-landing-create-hit"
+            aria-label="Create your apology letter"
+            onClick={() => {
+              log("info", {
+                category: "landing",
+                action: "letter_opened",
+                outcome: "ok",
+              });
+              router.push("/create");
+            }}
+          >
+            <ButtonCreate />
+          </button>
+          <TextTitle />
+        </div>
       </div>
     </main>
   );

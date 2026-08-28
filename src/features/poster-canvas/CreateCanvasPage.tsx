@@ -201,147 +201,155 @@ export function CreateCanvasPage() {
   }
 
   return (
-    <main className="ps-shell ps-screen ps-canvas-page">
-      <div className="ps-toolbar" role="toolbar" aria-label="Decoration tools">
-        {(
-          [
-            ["text", "Text"],
-            ["stickers", "Stickers"],
-            ["memes", "Memes"],
-            ["borders", "Borders"],
-          ] as const
-        ).map(([tool, label]) => (
-          <button
-            key={tool}
-            type="button"
-            className={`ps-tool${activeTool === tool ? " ps-tool--active" : ""}`}
-            aria-pressed={activeTool === tool}
-            onClick={() => {
-              setSelection(null);
-              if (tool === "text") {
-                setShowTextPrompt(true);
-                setActiveTool("text");
-              } else {
-                setActiveTool(activeTool === tool ? null : tool);
-                setShowTextPrompt(false);
-              }
-            }}
-          >
-            {label}
-          </button>
-        ))}
+    <main className="ps-shell ps-canvas-page">
+      <div className="ps-canvas-page__toolbar">
+        <div className="ps-toolbar" role="toolbar" aria-label="Decoration tools">
+          {(
+            [
+              ["text", "Text"],
+              ["stickers", "Stickers"],
+              ["memes", "Memes"],
+              ["borders", "Borders"],
+            ] as const
+          ).map(([tool, label]) => (
+            <button
+              key={tool}
+              type="button"
+              className={`ps-tool${activeTool === tool ? " ps-tool--active" : ""}`}
+              aria-pressed={activeTool === tool}
+              onClick={() => {
+                setSelection(null);
+                if (tool === "text") {
+                  setShowTextPrompt(true);
+                  setActiveTool("text");
+                } else {
+                  setActiveTool(activeTool === tool ? null : tool);
+                  setShowTextPrompt(false);
+                }
+              }}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
       </div>
 
-      <CanvasPaper
-        layout={layout}
-        interactive
-        selection={selection}
-        onSelect={setSelection}
-        onLayoutChange={setLayout}
-      >
-        {showTextPrompt ? (
-          <TextPromptOverlay
-            initial={promptValues}
-            onCancel={() => setShowTextPrompt(false)}
-            onDone={(input) => {
-              setLayout((prev) => ({
-                ...prev,
-                textBlocks: textBlocksFromPrompt(input),
-              }));
-              setShowTextPrompt(false);
-            }}
+      <div className="ps-canvas-page__body">
+        <CanvasPaper
+          layout={layout}
+          interactive
+          selection={selection}
+          onSelect={setSelection}
+          onLayoutChange={setLayout}
+        >
+          {showTextPrompt ? (
+            <TextPromptOverlay
+              initial={promptValues}
+              onCancel={() => setShowTextPrompt(false)}
+              onDone={(input) => {
+                setLayout((prev) => ({
+                  ...prev,
+                  textBlocks: textBlocksFromPrompt(input),
+                }));
+                setShowTextPrompt(false);
+              }}
+            />
+          ) : null}
+        </CanvasPaper>
+
+        {selection ? (
+          <CanvasDeleteButton
+            label={selectionLabel}
+            scaleLabel={`${Math.round(selectionScale * 100)}%`}
+            canShrink={selectionScale > scaleLimits.min + 0.001}
+            canGrow={selectionScale < scaleLimits.max - 0.001}
+            onShrink={() => resizeSelection(-scaleLimits.step)}
+            onGrow={() => resizeSelection(scaleLimits.step)}
+            onDelete={selection.kind === "border" ? undefined : deleteSelection}
+            onCancel={() => setSelection(null)}
           />
         ) : null}
-      </CanvasPaper>
 
-      {selection ? (
-        <CanvasDeleteButton
-          label={selectionLabel}
-          scaleLabel={`${Math.round(selectionScale * 100)}%`}
-          canShrink={selectionScale > scaleLimits.min + 0.001}
-          canGrow={selectionScale < scaleLimits.max - 0.001}
-          onShrink={() => resizeSelection(-scaleLimits.step)}
-          onGrow={() => resizeSelection(scaleLimits.step)}
-          onDelete={selection.kind === "border" ? undefined : deleteSelection}
-          onCancel={() => setSelection(null)}
-        />
-      ) : null}
+        {nudge ? <p className="ps-nudge" role="status">{nudge}</p> : null}
+      </div>
 
-      {activeTool === "stickers" ? (
-        <AssetTray
-          assets={stickerTray}
-          onPick={(id) => addAsset(id, "sticker")}
-          emptyMessage="No stickers yet — add rows in your Google Sheet, set enabled TRUE, and run npm run sync:assets."
-        />
-      ) : null}
+      <div className="ps-canvas-page__dock">
+        {activeTool === "stickers" ? (
+          <AssetTray
+            assets={stickerTray}
+            onPick={(id) => addAsset(id, "sticker")}
+            emptyMessage="No stickers yet — add rows in your Google Sheet, set enabled TRUE, and run npm run sync:assets."
+          />
+        ) : null}
 
-      {activeTool === "memes" ? (
-        <AssetTray
-          assets={memeTray}
-          onPick={(id) => addAsset(id, "meme")}
-          emptyMessage="No memes yet — add GIFs to public/memes/, enable in sheet, and run npm run sync:assets."
-        />
-      ) : null}
+        {activeTool === "memes" ? (
+          <AssetTray
+            assets={memeTray}
+            onPick={(id) => addAsset(id, "meme")}
+            emptyMessage="No memes yet — add GIFs to public/memes/, enable in sheet, and run npm run sync:assets."
+          />
+        ) : null}
 
-      {activeTool === "borders" ? (
-        <div className="ps-tray ps-tray--borders">
-          <div className="ps-tray__grid ps-tray__grid--borders">
-            {BORDER_OPTIONS.map((b) => (
-              <button
-                key={b.label}
-                type="button"
-                className={`ps-tray__item ps-tray__item--border${layout.borderId === b.id ? " ps-tray__item--active" : ""}`}
-                aria-label={b.label}
-                aria-pressed={layout.borderId === b.id}
-                onClick={() => {
-                  if (b.id === null) {
-                    setLayout((prev) => ({
-                      ...prev,
-                      borderId: null,
-                      borderScale: 1,
-                    }));
-                    setSelection(null);
-                  } else {
-                    setLayout((prev) => ({
-                      ...prev,
-                      borderId: b.id,
-                      borderScale: prev.borderScale ?? 1,
-                    }));
-                    setSelection({ kind: "border" });
-                  }
-                  setActiveTool(null);
-                }}
-              >
-                {b.src ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img src={b.src} alt="" className="ps-tray__border-preview" />
-                ) : (
-                  <span className="ps-tray__border-none">None</span>
-                )}
-              </button>
-            ))}
+        {activeTool === "borders" ? (
+          <div className="ps-tray ps-tray--borders">
+            <div className="ps-tray__grid ps-tray__grid--borders">
+              {BORDER_OPTIONS.map((b) => (
+                <button
+                  key={b.label}
+                  type="button"
+                  className={`ps-tray__item ps-tray__item--border${layout.borderId === b.id ? " ps-tray__item--active" : ""}`}
+                  aria-label={b.label}
+                  aria-pressed={layout.borderId === b.id}
+                  onClick={() => {
+                    if (b.id === null) {
+                      setLayout((prev) => ({
+                        ...prev,
+                        borderId: null,
+                        borderScale: 1,
+                      }));
+                      setSelection(null);
+                    } else {
+                      setLayout((prev) => ({
+                        ...prev,
+                        borderId: b.id,
+                        borderScale: prev.borderScale ?? 1,
+                      }));
+                      setSelection({ kind: "border" });
+                    }
+                    setActiveTool(null);
+                  }}
+                >
+                  {b.src ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={b.src} alt="" className="ps-tray__border-preview" />
+                  ) : (
+                    <span className="ps-tray__border-none">None</span>
+                  )}
+                </button>
+              ))}
+            </div>
           </div>
+        ) : null}
+
+        <div className="ps-canvas-page__footer">
+          <button
+            type="button"
+            className="ps-canvas-send"
+            aria-label="Send apology letter"
+            disabled={saving}
+            onClick={handleSend}
+          >
+            <Image
+              src={FIGMA_ASSETS.buttonSend}
+              alt=""
+              width={168}
+              height={72}
+              className="ps-canvas-send__img"
+            />
+            <span className="sr-only">{saving ? "Sending…" : "Send"}</span>
+          </button>
         </div>
-      ) : null}
-
-      {nudge ? <p className="ps-nudge" role="status">{nudge}</p> : null}
-
-      <button
-        type="button"
-        className="ps-canvas-send"
-        aria-label="Send apology letter"
-        disabled={saving}
-        onClick={handleSend}
-      >
-        <Image
-          src={FIGMA_ASSETS.buttonSend}
-          alt=""
-          width={168}
-          height={72}
-          className="ps-canvas-send__img"
-        />
-        <span className="sr-only">{saving ? "Sending…" : "Send"}</span>
-      </button>
+      </div>
     </main>
   );
 }

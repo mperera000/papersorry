@@ -15,7 +15,7 @@ export const FIGMA_ASSETS = {
   buttonSend: "/figma/button-send.png",
   mailbox: "/figma/mailbox.png?v=5",
   envelopeToOpen: "/figma/envelope-to-open.png",
-  waxOpenButton: "/figma/wax-open-button.png",
+  waxOpenButton: "/figma/wax-open-button.png?v=3",
   downloadIcon: "/figma/download-icon.png",
   copyIcon: "/figma/copy-icon.png",
   linkIcon: "/figma/link-icon.png",

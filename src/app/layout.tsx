@@ -55,7 +55,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${cormorant.variable} ${playfair.variable} ${alexBrush.variable} ${inter.variable} h-full antialiased`}
+      className={`${cormorant.variable} ${playfair.variable} ${alexBrush.variable} ${inter.variable} min-h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">{children}</body>
     </html>

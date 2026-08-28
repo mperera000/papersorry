@@ -72,6 +72,7 @@ export function SharePageClient({ posterId, sharePath }: SharePageClientProps) {
 
   return (
     <main className="ps-shell ps-share">
+      <div className="ps-share-scale">
       <div
         className="ps-share-frame"
         data-name="Screen/Share-Link-Ready"
@@ -126,6 +127,7 @@ export function SharePageClient({ posterId, sharePath }: SharePageClientProps) {
         <p className="ps-share__footer">
           <Link href="/">Make another</Link>
         </p>
+      </div>
       </div>
     </main>
   );

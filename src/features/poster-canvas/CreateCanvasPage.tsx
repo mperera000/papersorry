@@ -331,24 +331,25 @@ export function CreateCanvasPage() {
           </div>
         ) : null}
 
-        <div className="ps-canvas-page__footer">
-          <button
-            type="button"
-            className="ps-canvas-send"
-            aria-label="Send apology letter"
-            disabled={saving}
-            onClick={handleSend}
-          >
-            <Image
-              src={FIGMA_ASSETS.buttonSend}
-              alt=""
-              width={168}
-              height={72}
-              className="ps-canvas-send__img"
-            />
-            <span className="sr-only">{saving ? "Sending…" : "Send"}</span>
-          </button>
-        </div>
+      </div>
+
+      <div className="ps-canvas-page__footer">
+        <button
+          type="button"
+          className="ps-canvas-send"
+          aria-label="Send apology letter"
+          disabled={saving}
+          onClick={handleSend}
+        >
+          <Image
+            src={FIGMA_ASSETS.buttonSend}
+            alt=""
+            width={168}
+            height={72}
+            className="ps-canvas-send__img"
+          />
+          <span className="sr-only">{saving ? "Sending…" : "Send"}</span>
+        </button>
       </div>
     </main>
   );

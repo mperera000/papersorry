@@ -1202,34 +1202,80 @@ body {
     top: 801px;
   }
 
-  /* Canvas — same layout, roomier paper */
+  /* Canvas — tools become a left rail so the paper can grow */
   .ps-canvas-page {
-    --ps-canvas-pad-x: 1rem;
-    max-width: 34rem;
+    --ps-canvas-pad-x: 1.25rem;
+    max-width: 64rem;
+    display: grid;
+    grid-template-columns: 15rem minmax(0, 1fr);
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    align-items: stretch;
+    column-gap: 1.5rem;
+    row-gap: 0.75rem;
+  }
+
+  .ps-canvas-page__toolbar {
+    grid-area: 1 / 1 / 2 / 2;
+    align-self: start;
+  }
+
+  .ps-canvas-page__dock {
+    grid-area: 2 / 1 / 4 / 2;
+    align-self: start;
+    max-height: none;
     gap: 0.75rem;
   }
 
-  .ps-canvas-page__body,
-  .ps-canvas-page__dock {
-    gap: 0.6rem;
+  .ps-canvas-page__body {
+    grid-area: 1 / 2 / 3 / 3;
+    min-height: 0;
+    gap: 0.75rem;
   }
 
-  .ps-canvas-page__dock {
-    max-height: 40%;
+  .ps-canvas-page__footer {
+    grid-area: 3 / 2 / 4 / 3;
   }
 
+  /* Stacked tool list rather than a 4-up strip */
   .ps-toolbar {
-    gap: 0.6rem;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.5rem;
+    max-width: none;
   }
 
   .ps-tool {
     min-height: 3rem;
-    padding: 0.55rem 0.5rem;
+    padding: 0.55rem 0.75rem;
     font-size: 1rem;
   }
 
   .ps-paper-wrap {
-    max-width: 30rem;
+    max-width: 40rem;
+    /* Mirrors .ps-paper's own width so children can scale with the paper */
+    --ps-paper-w: min(100cqw, calc(100cqh * 370 / 570));
+  }
+
+  /* Canvas content keeps its phone proportions (fractions of a 368px paper)
+     so a letter composed on one screen reads the same on another. */
+  .canvas-text--greeting {
+    font-size: calc(var(--ps-paper-w) * 0.05);
+  }
+
+  .canvas-text--headline {
+    font-size: calc(var(--ps-paper-w) * 0.0587);
+  }
+
+  .canvas-text--body {
+    font-size: calc(var(--ps-paper-w) * 0.0435);
+  }
+
+  .ps-canvas-asset,
+  .ps-canvas-asset--sticker {
+    width: calc(var(--ps-paper-w) * 0.1739);
+  }
+
+  .ps-canvas-asset--meme {
+    width: calc(var(--ps-paper-w) * 0.1413);
   }
 
   .ps-canvas-send__img {
@@ -1237,14 +1283,38 @@ body {
   }
 
   .ps-tray,
+  .ps-canvas-delete-bar,
+  .ps-nudge {
+    max-width: none;
+  }
+
+  .ps-tray,
   .ps-canvas-delete-bar {
-    max-width: 30rem;
-    padding: 0.6rem 0.75rem;
+    padding: 0.6rem;
+  }
+
+  .ps-nudge {
+    font-size: 0.95rem;
+  }
+
+  /* Trays wrap inside the rail instead of scrolling sideways */
+  .ps-tray__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.5rem;
+    justify-items: center;
+    overflow: visible;
+  }
+
+  .ps-tray__grid--borders {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    overflow: visible;
   }
 
   .ps-tray__item--border {
-    flex-basis: 5.5rem;
-    min-width: 5.5rem;
+    flex-basis: auto;
+    min-width: 0;
     min-height: 4rem;
   }
 
@@ -1253,38 +1323,119 @@ body {
     min-height: 3.4rem;
   }
 
-  .ps-nudge {
-    max-width: 30rem;
-    font-size: 0.95rem;
+  /* Share — title and link sit beside the mailbox */
+  .ps-share-scale {
+    width: auto;
+    height: auto;
+    overflow: visible;
   }
 
-  /* Receive — larger envelope and letter */
+  .ps-share-frame {
+    position: relative;
+    width: auto;
+    height: auto;
+    transform: none;
+    display: grid;
+    grid-template-columns: minmax(0, 22rem) auto;
+    grid-template-areas:
+      "title mailbox"
+      "footer mailbox";
+    align-items: center;
+    column-gap: 4rem;
+    row-gap: 1.25rem;
+    padding: 2rem;
+  }
+
+  .ps-share__title {
+    grid-area: title;
+    align-self: end;
+    position: static;
+    width: auto;
+    max-width: none;
+    transform: none;
+    text-align: left;
+    font-size: 4rem;
+  }
+
+  .ps-share__footer {
+    grid-area: footer;
+    align-self: start;
+    position: static;
+    top: auto;
+    text-align: left;
+    font-size: 1.15rem;
+  }
+
+  .ps-figma-mailbox {
+    grid-area: mailbox;
+    position: relative;
+    left: auto;
+    top: auto;
+    width: 480px;
+    height: 692px;
+    transform: none;
+  }
+
+  .ps-figma-mailbox__img {
+    width: 480px;
+  }
+
+  .ps-figma-mailbox__slot {
+    gap: 0.5rem;
+    padding: 0.45rem 0.6rem;
+  }
+
+  .ps-figma-mailbox__slot-icon {
+    width: 1.4rem;
+    height: 1.4rem;
+  }
+
+  .ps-figma-mailbox__url-btn {
+    font-size: 0.8rem;
+  }
+
+  .ps-figma-mailbox__copy {
+    width: 2.4rem;
+    height: 2.4rem;
+  }
+
+  .ps-figma-mailbox__copy img {
+    width: 1.8rem;
+    height: 1.8rem;
+  }
+
+  /* Receive — instruction beside the envelope; letter stays centred */
   .ps-screen {
-    max-width: 34rem;
+    max-width: 64rem;
   }
 
   .ps-receive-closed {
-    padding: 2.5rem 2rem 1.5rem;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    column-gap: 4rem;
+    padding: 2rem 2.5rem;
   }
 
   .ps-receive-closed__title {
-    font-size: 2.6rem;
+    font-size: 2.75rem;
     max-width: 26rem;
   }
 
   .ps-receive-envelope-wrap {
-    width: min(30rem, 80vw);
-    max-height: 52%;
+    width: 32rem;
+    max-height: none;
+    margin: 0;
   }
 
   /* Keep the seal the same share of the envelope as on phones (5.75/21.5) */
   .ps-receive-wax-hit {
-    width: 8rem;
-    height: 8rem;
+    width: 8.5rem;
+    height: 8.5rem;
   }
 
   .ps-receive-open {
-    padding: 1.25rem 1.5rem 1.5rem;
+    padding: 1.5rem;
     gap: 1rem;
   }
 }

@@ -110,9 +110,20 @@ other routes reuse their 402 × 874 composition, scaled up (see below).
 
 Frame is scaled to *fit* (`min()`), not cover, so the whole envelope stays visible.
 
-**Other routes on desktop** — no Figma frame exists, so nothing new was designed. They keep
-the mobile composition with wider caps: canvas `34rem` shell / `30rem` paper, receive
-`34rem` shell / `30rem` envelope. Ask the PM before inventing desktop layouts for these.
+### Other routes on desktop — **no Figma frame; laid out by the engineer on request**
+
+These use the same assets, type, and colours as the phone screens; only the arrangement
+changed. Replace with Figma frames whenever they exist.
+
+| Route | Desktop arrangement |
+|---|---|
+| `/create` | Two columns: tools as a stacked 15rem left rail with the active tray beneath them, paper on the right (grows to ~570 × 880), Send centred under the paper |
+| `/share/[id]` | Two columns: title + “Make another” left, mailbox with the link slot right. Mailbox 480px wide, same 0.752 crop ratio as the phone frame so the slot and copied badge stay aligned |
+| `/p/[id]` closed | Two columns: instruction left, envelope right at 32rem, seal at 8.5rem (same share of the envelope as on phones) |
+| `/p/[id]` open | Letter stays centred — it is the content — just larger |
+
+Canvas content (text, stickers, memes) is sized as a fraction of `--ps-paper-w` on desktop
+rather than in fixed `rem`, so a letter composed on a phone reads the same on a large paper.
 
 ---
 

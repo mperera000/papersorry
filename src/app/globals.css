@@ -1186,14 +1186,27 @@ body {
     height: 1819px;
   }
 
-  /* Text/Title 86:432 — script word only, on the flap */
+  /* Text/Title 86:432 — both lines, re-set for the wide frame. The desktop
+     title is its own type, not the phone block scaled: there the script word is
+     far larger than the sans one, here the two are nearly the same size. */
   .ps-figma-title {
-    left: 1004px;
-    top: 607px;
+    left: 902px;
+    top: 420px;
+    width: 520px;
+    height: 340px;
   }
 
   .ps-figma-title__send {
-    display: none;
+    inset: 0 auto auto 0;
+    white-space: nowrap;
+    font-size: 125px;
+    letter-spacing: -2.5px;
+  }
+
+  .ps-figma-title__apology {
+    inset: 170px auto auto 58px;
+    font-size: 127px;
+    letter-spacing: 1.27px;
   }
 
   /* Button/Create — centered on the flap seam at (1138, 894) */

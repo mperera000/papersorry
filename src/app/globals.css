@@ -1233,6 +1233,10 @@ body {
 
   .ps-canvas-page__footer {
     grid-area: 5 / 2 / 6 / 3;
+    /* button-send.png carries ~19% flat padding above the seal, and the paper's
+       contain fit leaves a sliver of empty box below its torn edge; pull back so
+       the seal reads as sitting just under the paper */
+    margin-top: -1.25rem;
   }
 
   /* Stacked tool list rather than a 4-up strip */
@@ -1252,6 +1256,9 @@ body {
     max-width: 40rem;
     /* Mirrors .ps-paper's own width so children can scale with the paper */
     --ps-paper-w: min(100cqw, calc(100cqh * 370 / 570));
+    /* Once the paper hits its width cap the spare height goes above it, so the
+       Send button stays tucked under the paper instead of drifting down */
+    place-items: end center;
   }
 
   /* Canvas content keeps its phone proportions (fractions of a 368px paper)

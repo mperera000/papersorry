@@ -94,6 +94,28 @@ Copied state: HTML badge “Link Copied” — do **not** swap to `share-copied.
 
 ---
 
+## Desktop
+
+### `Web Browser- Envelope/closed` — `86:430` · route `/` at `min-width: 1024px`
+
+Frame **2274 × 1819** (landscape). Only the landing has a desktop frame in Figma; the
+other routes reuse their 402 × 874 composition, scaled up (see below).
+
+| Layer | Source | Notes |
+|---|---|---|
+| Backdrop | `#1f1f1f` | `--envelope-backdrop`; matches the photo’s own dark surface, so letterboxing is invisible |
+| Envelope | `envelope-close.png` | Fills the frame (asset is 4096 × 3277, same 1.25 aspect — no crop) |
+| Title | `Text/Title` `86:432` — 336 × 152 at **(1004, 607)** | Script **“Apology” only**; “Send An” is hidden on desktop |
+| CTA | `Button/Create` — 189 × 186, centred at **(1138, 894)** | Sits on the flap seam, below the title |
+
+Frame is scaled to *fit* (`min()`), not cover, so the whole envelope stays visible.
+
+**Other routes on desktop** — no Figma frame exists, so nothing new was designed. They keep
+the mobile composition with wider caps: canvas `34rem` shell / `30rem` paper, receive
+`34rem` shell / `30rem` envelope. Ask the PM before inventing desktop layouts for these.
+
+---
+
 ## Typography (Google Fonts)
 
 | Role | Figma | Code variable |

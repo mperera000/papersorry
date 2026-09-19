@@ -9,6 +9,8 @@
   --prompt-purple: #4a2f5c;
   --border-brown: #3d342c;
   --focus: #2f5340;
+  /* Dark surface the envelope is photographed on (Figma 86:430 backdrop) */
+  --envelope-backdrop: #1f1f1f;
 
   --background: var(--bg);
   --foreground: var(--ink);
@@ -1150,6 +1152,140 @@ body {
   }
   to {
     opacity: 1;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Desktop — Figma `Web Browser- Envelope/closed` 86:430 (2274×1819)
+   Landing swaps the 402×874 phone frame for the landscape browser frame.
+   Other screens keep their Figma composition, scaled up for a larger viewport.
+   --------------------------------------------------------------------------- */
+@media (min-width: 1024px) {
+  /* Landing — 86:430 */
+  .ps-landing {
+    background: var(--envelope-backdrop);
+  }
+
+  .ps-landing-scale {
+    --ps-land-s: min(100cqw / 2274px, 100cqh / 1819px);
+    width: calc(2274px * var(--ps-land-s));
+    height: calc(1819px * var(--ps-land-s));
+  }
+
+  .ps-landing-frame {
+    width: 2274px;
+    height: 1819px;
+    background: var(--envelope-backdrop);
+  }
+
+  /* Envelope/close fills the frame instead of the phone crop */
+  .ps-figma-envelope {
+    left: 0;
+    top: 0;
+    width: 2274px;
+    height: 1819px;
+  }
+
+  /* Text/Title 86:432 — script word only, on the flap */
+  .ps-figma-title {
+    left: 1004px;
+    top: 607px;
+  }
+
+  .ps-figma-title__send {
+    display: none;
+  }
+
+  /* Button/Create — centered on the flap seam at (1138, 894) */
+  .ps-landing-create-hit {
+    left: 1044px;
+    top: 801px;
+  }
+
+  /* Canvas — same layout, roomier paper */
+  .ps-canvas-page {
+    --ps-canvas-pad-x: 1rem;
+    max-width: 34rem;
+    gap: 0.75rem;
+  }
+
+  .ps-canvas-page__body,
+  .ps-canvas-page__dock {
+    gap: 0.6rem;
+  }
+
+  .ps-canvas-page__dock {
+    max-height: 40%;
+  }
+
+  .ps-toolbar {
+    gap: 0.6rem;
+  }
+
+  .ps-tool {
+    min-height: 3rem;
+    padding: 0.55rem 0.5rem;
+    font-size: 1rem;
+  }
+
+  .ps-paper-wrap {
+    max-width: 30rem;
+  }
+
+  .ps-canvas-send__img {
+    width: 10rem;
+  }
+
+  .ps-tray,
+  .ps-canvas-delete-bar {
+    max-width: 30rem;
+    padding: 0.6rem 0.75rem;
+  }
+
+  .ps-tray__item--border {
+    flex-basis: 5.5rem;
+    min-width: 5.5rem;
+    min-height: 4rem;
+  }
+
+  .ps-tray__border-preview,
+  .ps-tray__border-none {
+    min-height: 3.4rem;
+  }
+
+  .ps-nudge {
+    max-width: 30rem;
+    font-size: 0.95rem;
+  }
+
+  /* Receive — larger envelope and letter */
+  .ps-screen {
+    max-width: 34rem;
+  }
+
+  .ps-receive-closed {
+    padding: 2.5rem 2rem 1.5rem;
+  }
+
+  .ps-receive-closed__title {
+    font-size: 2.6rem;
+    max-width: 26rem;
+  }
+
+  .ps-receive-envelope-wrap {
+    width: min(30rem, 80vw);
+    max-height: 52%;
+  }
+
+  /* Keep the seal the same share of the envelope as on phones (5.75/21.5) */
+  .ps-receive-wax-hit {
+    width: 8rem;
+    height: 8rem;
+  }
+
+  .ps-receive-open {
+    padding: 1.25rem 1.5rem 1.5rem;
+    gap: 1rem;
   }
 }
 

@@ -1365,23 +1365,33 @@ body {
     font-size: 1.15rem;
   }
 
+  /* Whole mailbox, uncropped — sized by height so it fills the page */
   .ps-figma-mailbox {
     grid-area: mailbox;
     position: relative;
     left: auto;
     top: auto;
-    width: 480px;
-    height: 692px;
+    width: auto;
+    /* 5rem leaves room for the frame's 4rem padding plus a little breathing space */
+    height: min(64rem, calc(100cqh - 5rem));
+    aspect-ratio: 804 / 1542;
     transform: none;
   }
 
   .ps-figma-mailbox__img {
-    width: 480px;
+    width: 100%;
+    height: 100%;
   }
 
+  /* Slot and badge re-anchored to the full image (phone value × 580/771) */
   .ps-figma-mailbox__slot {
+    top: 40.77%;
     gap: 0.5rem;
     padding: 0.45rem 0.6rem;
+  }
+
+  .ps-figma-mailbox__copied {
+    top: 34.6%;
   }
 
   .ps-figma-mailbox__slot-icon {

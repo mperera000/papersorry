@@ -1246,10 +1246,6 @@ body {
 
   .ps-canvas-page__footer {
     grid-area: 5 / 2 / 6 / 3;
-    /* button-send.png carries ~19% flat padding above the seal, and the paper's
-       contain fit leaves a sliver of empty box below its torn edge; pull back so
-       the seal reads as sitting just under the paper */
-    margin-top: -1.25rem;
   }
 
   /* Stacked tool list rather than a 4-up strip */
@@ -1297,8 +1293,16 @@ body {
     width: calc(var(--ps-paper-w) * 0.1413);
   }
 
+  /* button-send.png is 334 × 236 with the wax only on rows 44–204, and its
+     padding is flat #f5f5f5 rather than transparent. Crop the padding above the
+     seal so the button sits close under the paper. Pulling the box up instead
+     parks that opaque padding over the paper, which shows as a white notch
+     whenever the text prompt dims the paper. */
   .ps-canvas-send__img {
     width: 10rem;
+    height: calc(10rem * 192 / 334);
+    object-fit: cover;
+    object-position: 50% 100%;
   }
 
   .ps-tray,

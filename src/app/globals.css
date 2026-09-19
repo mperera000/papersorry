@@ -1324,21 +1324,22 @@ body {
 
   /* Share — title and link sit beside the mailbox */
   .ps-share-scale {
-    width: auto;
+    width: 100%;
     height: auto;
     overflow: visible;
   }
 
+  /* Empty third column mirrors the first, so the mailbox lands on the page centre */
   .ps-share-frame {
     position: relative;
-    width: auto;
+    width: 100%;
     height: auto;
     transform: none;
     display: grid;
-    grid-template-columns: minmax(0, 22rem) auto;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
     grid-template-areas:
-      "title mailbox"
-      "footer mailbox";
+      "title mailbox ."
+      "footer mailbox .";
     align-items: center;
     column-gap: 4rem;
     row-gap: 1.25rem;
@@ -1348,9 +1349,10 @@ body {
   .ps-share__title {
     grid-area: title;
     align-self: end;
+    justify-self: end;
     position: static;
-    width: auto;
-    max-width: none;
+    width: 22rem;
+    max-width: 100%;
     transform: none;
     text-align: left;
     font-size: 4rem;
@@ -1359,8 +1361,11 @@ body {
   .ps-share__footer {
     grid-area: footer;
     align-self: start;
+    justify-self: end;
     position: static;
     top: auto;
+    width: 22rem;
+    max-width: 100%;
     text-align: left;
     font-size: 1.15rem;
   }

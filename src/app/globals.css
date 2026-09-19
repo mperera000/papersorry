@@ -1186,33 +1186,43 @@ body {
     height: 1819px;
   }
 
-  /* Text/Title 86:432 — both lines, re-set for the wide frame. The desktop
-     title is its own type, not the phone block scaled: there the script word is
-     far larger than the sans one, here the two are nearly the same size. */
+  /* Text/Title 86:432 — the desktop title is its own type, not the phone block
+     scaled. The two lines now straddle the seal: sans word on the upper flap,
+     script word on the lower one, both centred on the envelope's axis (x 1140).
+     Sizes are matched to the Figma ink, so they read as one pair. */
   .ps-figma-title {
-    left: 902px;
-    top: 420px;
-    width: 520px;
-    height: 340px;
+    left: 810px;
+    top: 447px;
+    width: 700px;
+    height: 900px;
   }
 
   .ps-figma-title__send {
     inset: 0 auto auto 0;
     white-space: nowrap;
-    font-size: 125px;
-    letter-spacing: -2.5px;
+    font-size: 176px;
+    letter-spacing: -3.52px;
   }
 
   .ps-figma-title__apology {
-    inset: 170px auto auto 58px;
-    font-size: 127px;
-    letter-spacing: 1.27px;
+    inset: 635px auto auto 8px;
+    white-space: nowrap;
+    font-size: 211px;
+    letter-spacing: 2.11px;
   }
 
-  /* Button/Create — centered on the flap seam at (1138, 894) */
+  /* Button/Create — wax centred between the two words at (1142, 876). Both the
+     hit area and the seal grow: every layer inside them is percentage-based. */
   .ps-landing-create-hit {
-    left: 1044px;
-    top: 801px;
+    left: 989px;
+    top: 721px;
+    width: 305px;
+    height: 300px;
+  }
+
+  .ps-figma-create {
+    width: 305px;
+    height: 300px;
   }
 
   /* Canvas — tools become a left rail so the paper can grow */

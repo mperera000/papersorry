@@ -105,8 +105,8 @@ other routes reuse their 402 × 874 composition, scaled up (see below).
 |---|---|---|
 | Backdrop | `#1f1f1f` | `--envelope-backdrop`; matches the photo’s own dark surface, so letterboxing is invisible |
 | Envelope | `envelope-close.png` | Fills the frame (asset is 4096 × 3277, same 1.25 aspect — no crop) |
-| Title | `Text/Title` `86:432` — both lines on the flap | Re-set for the wide frame, **not** the phone block scaled: “Send An” 125px Inter Light, “Apology” 127px Alex Brush — nearly equal here, 58/95 on the phone. Ink lands at (911, 449)–(1364, 543) and (960, 610)–(1345, 721) |
-| CTA | `Button/Create` — 189 × 186, centred at **(1138, 894)** | Sits on the flap seam, below the title |
+| Title | `Text/Title` `86:432` — the two words straddle the seal | Re-set for the wide frame, **not** the phone block scaled: “Send An” 176px Inter Light on the upper flap, “Apology” 211px Alex Brush on the lower one, both centred on x ≈ 1140. Ink lands at (823, 488)–(1459, 620) and (818, 1115)–(1459, 1299) |
+| CTA | `Button/Create` — 305 × 300 at **(989, 721)**; wax centred at **(1142, 876)** | Sits between the two words. Every layer inside the button is percentage-based, so the hit area and the seal scale together |
 
 Frame is scaled to *fit* (`min()`), not cover, so the whole envelope stays visible.
 
